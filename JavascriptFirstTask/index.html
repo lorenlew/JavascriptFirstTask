@@ -2,14 +2,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
+    <header>
+        <h1>
+            Date Display Formatter
+        </h1>
+        <p>
+            Разработать объект для формирования дат (объект, содержащий набор функций). Объект должен позволять обрабатывать
+            входные данные в виде строки или в виде числа(ms,h). 
+        </p>
+    </header>
+    <main>
+        <section>
+            <fieldset class="initial">
+                <legend>Selected input format</legend>
+                <p>      
+                    <select id="inputFormatTypeList">
+                        <option value="Not selected">-Not selected-</option>
+                        <option value="hours">hours</option>
+                        <option value="YYYYMMDD">YYYYMMDD</option>
+                        <option value="YYYYDDMM">YYYYDDMM</option>
+                        <option value="DDMMYYYY">DDMMYYYY</option>
+                        <option value="MMDDYYYY">MMDDYYYY</option>
+                    </select>  
+                    <label id="inputFormatTypeListLabel" class="label"></label> 
+                </p>
+                <textarea id="dateInput" name="time" placeholder="Enter date in provided format"></textarea>  
+                <label id="dateInputLabel" class="label"></label> 
+            </fieldset>
+            <fieldset class="desirable">
+                <legend>Select output format</legend>
+                <p>
+                    <select id="outputFormatTypeList">
+                        <option value="Not selected">-Not selected-</option>  
+                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        <option value="YYYY.MM.DD">YYYY.MM.DD</option>
+                        <option value="YYYY-DD-MM">YYYY-DD-MM</option>
+                        <option value="YYYY.DD.MM">YYYY.DD.MM</option>
 
+                        <option value="DD-MM-YYYY">DD-MM-YYYY</option>
+                        <option value="DD.MM.YYYY">DD.MM.YYYY</option>
+                        <option value="MM-DD-YYYY">MM-DD-YYYY</option>
+                        <option value="MM.DD.YYYY">MM.DD.YYYY</option>
 
-
-
-
-
+                        <option value="YYYY MMMM DD">YYYY MMMM DD</option>
+                        <option value="YYYY DD MMMM">YYYY DD MMMM</option>
+                        <option value="DD MMMM YYYY">DD MMMM YYYY</option>
+                        <option value="MMMM DD YYYY">MMMM DD YYYY</option>
+                    </select> 
+                    <label id="outputFormatTypeListLabel" class="label"></label> 
+                </p>
+            </fieldset>
+        </section>       
+        <div id="date" class="log"></div>
+        <div id="input" class="log"></div>
+        <div id="output" class="log"></div> 
+        <div id="result" class="log"></div>
+        <button id="format">Format</button>
+    </main>
     <script src="Content/Scripts/DateDisplayFormatter.min.js"></script>
 </body>
 </html>
