@@ -1,4 +1,4 @@
-﻿body {
+﻿body { 
 }
 
 
@@ -28,7 +28,8 @@ button {
     margin-top: 10px;
     font-size: large;
     font-weight: 900;
-    background-color: #eadc59;
+    background-color: #b6ff00;
+    background-color: rgba(182, 255, 0, 0.22);
     width: 30%;
 }
 
@@ -36,7 +37,8 @@ button {
     margin-top: 10px;
     font-size: large;
     font-weight: 900;
-    background-color: #e8d84a;
+    background-color: #ffd800;
+    background-color: rgba(255, 216, 0, 0.21);
     width: 30%;
 }
 
