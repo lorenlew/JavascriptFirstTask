@@ -5,13 +5,17 @@
     <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <h1>
+    <header >
+        <h1 class="font-bordered">
             Date Display Formatter
         </h1>
         <p>
             Разработать объект для формирования дат (объект, содержащий набор функций). Объект должен позволять обрабатывать
             входные данные в виде строки или в виде числа (hours).
+        </p>
+        <p>
+            Сделана валидация вводимых данных, так, например, нельзя ввести месяц больше 12, меньше 1; день больше 31 и меньше 1; год меньше 1
+            Проверка регулярными выражениями требует ввод положительных 8 цифр для формата дат и положительных цифр для ввода в формате часов.
         </p>
     </header>
     <main>
@@ -56,13 +60,13 @@
                 </p>
             </fieldset>
         </section>
+        <button id="format">Format</button>
         <section class="log">
             <div id="date"></div>
             <div id="input"></div>
             <div id="output"></div>
             <div id="result"></div>
         </section>
-        <button id="format">Format</button>
     </main>
     <script src="Content/Scripts/DateFormatter.js"></script>
     <script src="Content/Scripts/FormatDate.js"></script>

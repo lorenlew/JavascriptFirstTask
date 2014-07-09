@@ -1,6 +1,21 @@
-﻿body { 
+﻿
+header {
+    width: 30%;
+    float: left;
+    margin-left: 50px;
 }
 
+p {
+    padding-top: 15px;
+}
+
+main {
+    width: 600px;
+    height: 400px;
+    margin-top: 15px;
+    float: right;
+    margin-right: 200px;
+}
 
 button {
     margin: 10px;
@@ -8,12 +23,14 @@ button {
     width: 100px;
     border-radius: 15%;
     background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 216, 0, 0.43);
+    outline: none;
+    float: left;
 }
 
     button:hover {
         background-color: #000000;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(255, 216, 0, 0.61);
     }
 
 .label {
@@ -30,18 +47,24 @@ button {
     font-weight: 900;
     background-color: #b6ff00;
     background-color: rgba(182, 255, 0, 0.22);
-    width: 30%;
+    width: 70%;
 }
 
 .desirable {
-    margin-top: 10px;
+    margin-top: 30px;
     font-size: large;
     font-weight: 900;
     background-color: #ffd800;
     background-color: rgba(255, 216, 0, 0.21);
-    width: 30%;
+    width: 60%;
 }
 
 .input {
     width: 250px;
+}
+
+.font-bordered {
+    color: #ffffff;
+    -ms-text-shadow: #000 2px 0px 2px, #000 0px 2px 2px, #000 0px -2px 2px, #000 -2px 0px 2px;
+    text-shadow: #000 2px 0px 2px, #000 0px 2px 2px, #000 0px -2px 2px, #000 -2px 0px 2px;
 }

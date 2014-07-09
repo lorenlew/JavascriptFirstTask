@@ -1,5 +1,5 @@
 ﻿Window.onload = (function () {
-
+                       "use strict";
     var outputButton = document.getElementById("format");
 
     var inputFormatTypeList = document.getElementById("inputFormatTypeList");
@@ -22,7 +22,7 @@
         } else {
             return regExpForDateString.exec(inputDate);
         }
-    };
+    }
     outputButton.onclick = function validateInput() {
 
         var selectedInputFormatValue = inputFormatTypeList.options[inputFormatTypeList.selectedIndex].value;
@@ -41,7 +41,7 @@
         }
 
         if (selectedInputFormatValue === "Not selected") {
-            inputFormatTypeListLabel.innerHTML = 'not input format';
+            inputFormatTypeListLabel.innerHTML = 'no input format';
             inputLog.innerHTML = '';
         } else {
             inputLog.innerHTML = "Input format: " + selectedInputFormatValue;
