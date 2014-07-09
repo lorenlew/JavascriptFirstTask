@@ -11,14 +11,14 @@
         </h1>
         <p>
             Разработать объект для формирования дат (объект, содержащий набор функций). Объект должен позволять обрабатывать
-            входные данные в виде строки или в виде числа(ms,h). 
+            входные данные в виде строки или в виде числа(ms,h).
         </p>
     </header>
     <main>
         <section>
             <fieldset class="initial">
-                <legend>Selected input format</legend>
-                <p>      
+                <legend>Select input format and value</legend>
+                <p>
                     <select id="inputFormatTypeList">
                         <option value="Not selected">-Not selected-</option>
                         <option value="hours">hours</option>
@@ -26,17 +26,17 @@
                         <option value="YYYYDDMM">YYYYDDMM</option>
                         <option value="DDMMYYYY">DDMMYYYY</option>
                         <option value="MMDDYYYY">MMDDYYYY</option>
-                    </select>  
-                    <label id="inputFormatTypeListLabel" class="label"></label> 
+                    </select>
+                    <label id="inputFormatTypeListLabel" class="label"></label>
                 </p>
-                <textarea id="dateInput" name="time" placeholder="Enter date in provided format"></textarea>  
-                <label id="dateInputLabel" class="label"></label> 
+                <input id="dateInput" name="time" class="input" placeholder="Enter date in provided format">
+                <label id="dateInputLabel" class="label"></label>
             </fieldset>
             <fieldset class="desirable">
                 <legend>Select output format</legend>
                 <p>
                     <select id="outputFormatTypeList">
-                        <option value="Not selected">-Not selected-</option>  
+                        <option value="Not selected">-Not selected-</option>
                         <option value="YYYY-MM-DD">YYYY-MM-DD</option>
                         <option value="YYYY.MM.DD">YYYY.MM.DD</option>
                         <option value="YYYY-DD-MM">YYYY-DD-MM</option>
@@ -51,17 +51,20 @@
                         <option value="YYYY DD MMMM">YYYY DD MMMM</option>
                         <option value="DD MMMM YYYY">DD MMMM YYYY</option>
                         <option value="MMMM DD YYYY">MMMM DD YYYY</option>
-                    </select> 
-                    <label id="outputFormatTypeListLabel" class="label"></label> 
+                    </select>
+                    <label id="outputFormatTypeListLabel" class="label"></label>
                 </p>
             </fieldset>
-        </section>       
-        <div id="date" class="log"></div>
-        <div id="input" class="log"></div>
-        <div id="output" class="log"></div> 
-        <div id="result" class="log"></div>
+        </section>
+        <section class="log">
+            <div id="date"></div>
+            <div id="input"></div>
+            <div id="output"></div>
+            <div id="result"></div>
+        </section>
         <button id="format">Format</button>
     </main>
-    <script src="Content/Scripts/DateDisplayFormatter.min.js"></script>
+    <script src="Content/Scripts/DateFormatter.js"></script>
+    <script src="Content/Scripts/FormatDate.js"></script>
 </body>
 </html>

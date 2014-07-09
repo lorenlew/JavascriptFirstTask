@@ -1,6 +1,4 @@
 ﻿body {
-    background-color: #646464;
-    background-color: rgba(255, 216, 0, 0.2);
 }
 
 
@@ -10,10 +8,10 @@ button {
     width: 100px;
     border-radius: 15%;
     background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-button:hover {
+    button:hover {
         background-color: #000000;
         background-color: rgba(0, 0, 0, 0.4);
     }
@@ -22,19 +20,26 @@ button:hover {
     color: salmon;
 }
 
-.log {
-    color: lightseagreen;
+.log div {
+    color: #822929;
 }
 
 .initial {
-    margin-top: 50px;
+    margin-top: 10px;
     font-size: large;
     font-weight: 900;
-    background-color: khaki;
+    background-color: #eadc59;
+    width: 30%;
 }
 
 .desirable {
+    margin-top: 10px;
     font-size: large;
     font-weight: 900;
     background-color: #e8d84a;
+    width: 30%;
+}
+
+.input {
+    width: 250px;
 }

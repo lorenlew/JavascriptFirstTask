@@ -57,9 +57,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Scripts\DateDisplayFormatter.js" />
-    <Content Include="Content\Scripts\DateDisplayFormatter.min.js">
-      <DependentUpon>DateDisplayFormatter.js</DependentUpon>
+    <Content Include="Content\Images\Elegant_Background-4.jpg" />
+    <Content Include="Content\Scripts\DateFormatter.js" />
+    <Content Include="Content\Scripts\DateFormatter.min.js">
+      <DependentUpon>DateFormatter.js</DependentUpon>
+    </Content>
+    <Content Include="Content\Scripts\FormatDate.js" />
+    <Content Include="Content\Scripts\FormatDate.min.js">
+      <DependentUpon>FormatDate.js</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="index.html" />
@@ -69,11 +74,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Scripts\DateDisplayFormatter.min.js.map">
-      <DependentUpon>DateDisplayFormatter.min.js</DependentUpon>
+    <Content Include="Content\Scripts\FormatDate.min.js.map">
+      <DependentUpon>FormatDate.min.js</DependentUpon>
     </Content>
-    <Content Include="Content\Scripts\DateDisplayFormatter.min.js.gzip">
-      <DependentUpon>DateDisplayFormatter.min.js</DependentUpon>
+    <Content Include="Content\Scripts\FormatDate.min.js.gzip">
+      <DependentUpon>FormatDate.min.js</DependentUpon>
+    </Content>
+    <Content Include="Content\Scripts\DateFormatter.min.js.map">
+      <DependentUpon>DateFormatter.min.js</DependentUpon>
+    </Content>
+    <Content Include="Content\Scripts\DateFormatter.min.js.gzip">
+      <DependentUpon>DateFormatter.min.js</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
