@@ -1,114 +1,158 @@
-﻿var dateFormatter = {
-    formatDate: function (inputDate, selectedInputFormatValue, selectedOutputFormatValue, separator) {
-        var day;
-        var month;
-        var year;
-        var formatedDate;
-        var maxDay = 31;
-        var minDay = 1;
-        var maxMonth = 12;
-        var minMonth = 1;
-        var minYear = 0;
-        var months = {
-            '01': 'January',
-            '02': 'February',
-            '03': 'March',
-            '04': 'April',
-            '05': 'May',
-            '06': 'June',
-            '07': 'July',
-            '08': 'August',
-            '09': 'September',
-            10: 'October',
-            11: 'November',
-            12: 'December'
-        };
-        var tokens = ['/dd/', '/DD/', '/mm/', '/MM/', '/MMMM/', '/yy/', '/yyyy/'];
+﻿/*global dateFormatter*/
+(function (dateFormatter) {
+
+    'use strict';
+
+    var maxDay = 31;
+    var minDay = 1;
+    var maxMonth = 12;
+    var minMonth = 1;
+    var minYear = 0;
+    var months = {
+        '01': 'January',
+        '02': 'February',
+        '03': 'March',
+        '04': 'April',
+        '05': 'May',
+        '06': 'June',
+        '07': 'July',
+        '08': 'August',
+        '09': 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December'
+    };
+    var tokens = ['/dd/', '/DD/', '/mm/', '/MM/', '/mmmm/', '/yy/', '/yyyy/'];
+    var day;
+    var month;
+    var year;
+    var foundTokensInInputString = {};
+    var foundTokensInOutputString = {};
+    var outputDateString = '';
+
+    function findTokens(selectedFormat) {
+
+        var positionOfToken;
+        var foundTokens = {};
+        var i;
+        for (i = 0; i < tokens.length; i += 1) {
+            positionOfToken = selectedFormat.indexOf(tokens[i]);
+            if (positionOfToken >= 0) {
+                foundTokens[tokens[i]] = positionOfToken;
+            }
+        }
+        return foundTokens;
+    }
+
+    function trimDateParts(inputDate, tokensInString) {
+
+        var datePart;
+        var token;
+        var datePartStartIndex;
+        var datePartEndIndex;
+        var tokenInLowerCase;
+
+        for (token in tokensInString) {
+            datePartStartIndex = tokensInString[token] + 1;
+            datePartEndIndex = datePartStartIndex + token.length - 2;
+            datePart = inputDate.substring(datePartStartIndex, datePartEndIndex);
+            tokenInLowerCase = token.toLowerCase();
+
+            if (tokenInLowerCase.indexOf('m') >= 0) {
+                month = datePart;
+            }
+            if (tokenInLowerCase.indexOf('d') >= 0) {
+                day = datePart;
+            }
+            if (tokenInLowerCase.indexOf('y') >= 0) {
+                year = datePart;
+            }
+        }
+    }
+
+    function validateInputDate(inputDate, selectedInputFormatValue) {
+
+        if (!foundTokensInInputString) {
+            foundTokensInInputString = findTokens(selectedInputFormatValue);
+            trimDateParts(inputDate, foundTokensInInputString);
+        }
+        if ((day <= maxDay && day > minDay && month > minMonth && month <= maxMonth && year > minYear)) {
+            return true;
+        }
+        throw Error('Invalid input date');
+    }
+
+    dateFormatter.fromNow = function (inputDate, selectedInputFormatValue) {
+
+        foundTokensInInputString = findTokens(selectedInputFormatValue);
+        trimDateParts(inputDate, foundTokensInInputString);
+        var providedYear = parseInt(year, 10);
+        var providedMonth = parseInt(month, 10) - 1;
+        var providedDay = parseInt(day, 10);
+
+        var providedDate = new Date(providedYear, providedMonth, providedDay);
+        var currentDate = new Date(Date.now());
+        var timeFromNow = new Date(currentDate - providedDate);
+
+        var fromNowYear = (timeFromNow.getFullYear() - 1970).toString();
+        var fromNowMonth = (timeFromNow.getMonth()).toString();
+        var fromNowDay = (timeFromNow.getDate()).toString();
+        var timeFromNowString = fromNowDay + ' days ' + fromNowMonth + ' months ' + fromNowYear + ' years';
+        return timeFromNowString;
+    };
+
+    function formOutputDate(separator) {
+
         var datePartsSeparator = separator || '';
-        var foundTokensInInputString = {};
-        var foundTokensInOutputString = {};
-        var getIndexOf = String.prototype.indexOf;
+        var sortedFoundTokensInOutputString = [];
+        var item;
+        for (item in foundTokensInOutputString) {
+            sortedFoundTokensInOutputString.push([item, foundTokensInOutputString[item]]);
+        }
+        sortedFoundTokensInOutputString.sort(function (a, b) {
+            return a[1] - b[1];
 
-        function findTokens(selectedFormat) {
-            var i;
-            var positionOfToken;
-            var foundTokens = {};
+        });
+        var tokenInLowerCase;
+        var i;
+        for (i = 0; i < sortedFoundTokensInOutputString.length; i += 1) {
+            tokenInLowerCase = sortedFoundTokensInOutputString[i][0].toLowerCase();
 
-            for (i = 0; i < tokens.length; i += 1) {
-                positionOfToken = getIndexOf.call(selectedFormat, tokens[i]);
-                if (positionOfToken >= 0) {
-                    foundTokens[tokens[i]] = positionOfToken;
+            if (tokenInLowerCase.indexOf('m') >= 0) {
+                if (tokenInLowerCase === '/mmmm/') {
+                    outputDateString += months[month] + datePartsSeparator;
+                } else {
+                    outputDateString += month + datePartsSeparator;
                 }
             }
-            return foundTokens;
-        };
-
-        function trimDateParts(inputString, tokensInString) {
-            var i;
-            var datePart;
-
-            for (var token in tokensInString) {
-
-                var datePartStartIndex = foundTokensInInputString[token] + 1;
-                var datePartEndIndex = datePartStartIndex + token.length - 2;
-                datePart = inputString.substring(datePartStartIndex, datePartEndIndex);
-
-                if (token.toLowerCase().indexOf('m') >= 0) {
-                    month = datePart;
-                }
-                if (token.toLowerCase().indexOf('d') >= 0) {
-                    day = datePart;
-                }
-                if (token.toLowerCase().indexOf('y') >= 0) {
-                    year = datePart;
+            if (tokenInLowerCase.indexOf('d') >= 0) {
+                outputDateString += day + datePartsSeparator;
+            }
+            if (tokenInLowerCase.indexOf('y') >= 0) {
+                if (tokenInLowerCase === '/yy/') {
+                    outputDateString += year.substr(2, 3) + datePartsSeparator;
+                } else {
+                    outputDateString += year + datePartsSeparator;
                 }
             }
         }
+    }
 
-        function validateInputDate() {
-            if ((day <= maxDay && day > minDay && month > minMonth && month <= maxMonth && year > minYear)) {
-                return true;
-            }
-            throw Error('Invalid input date');
-        }
-
-        function formOutputDateString() {
-            var outputString = '';
-            var sortedFoundTokensInOutputString = [];
-            for (var item in foundTokensInOutputString) {
-                sortedFoundTokensInOutputString.push([item, foundTokensInOutputString[item]]);
-            }
-            sortedFoundTokensInOutputString.sort(function (a, b) {
-                return a[1] - b[1];
-
-            });
-            var test = sortedFoundTokensInOutputString[1][1];
-            var i;
-            for (i = 0; i < sortedFoundTokensInOutputString.length; i += 1) {
-                var tokenInLower = sortedFoundTokensInOutputString[i][0].toLowerCase();
-
-                if (tokenInLower.indexOf('m') >= 0) {
-                    outputString += month + datePartsSeparator;
-                }
-                if (tokenInLower.indexOf('d') >= 0) {
-                    outputString += day + datePartsSeparator;
-                }
-                if (tokenInLower.indexOf('y') >= 0) {
-                    outputString += year + datePartsSeparator;
-                }
-            }
-            var stop;
-            return outputString;
-        }
+    dateFormatter.formatDate = function (inputDate, selectedInputFormatValue, selectedOutputFormatValue, separator) {
 
         foundTokensInInputString = findTokens(selectedInputFormatValue);
         foundTokensInOutputString = findTokens(selectedOutputFormatValue);
         trimDateParts(inputDate, foundTokensInInputString);
-        validateInputDate();
-        console.log('\n' + inputDate + '\n\n' + selectedInputFormatValue + '\n\n' + selectedOutputFormatValue +
-            '\n\n' + formOutputDateString(selectedOutputFormatValue));
-        return formOutputDateString(selectedOutputFormatValue);
-    }
-};
-dateFormatter.formatDate('today is a great day/31/ for our country/10/!/2009/', 'xxxxxxxxxxxxxxxxxxxx/DD/xxxxxxxxxxxxxxxx/mm/x/yyyy/',
-    '/yyyy//mm//DD/', '.');
+        validateInputDate(inputDate, selectedInputFormatValue);
+        formOutputDate(separator);
+
+        console.log('\n Input date string - ' + inputDate + '\n\n Input format - ' + selectedInputFormatValue +
+            '\n\n Output format - ' + selectedOutputFormatValue + '\n\n Output date string' + outputDateString);
+        return outputDateString;
+    };
+
+}(window.dateFormatter = window.dateFormatter || {}));
+
+
+dateFormatter.formatDate('today is a great day/15/ for our country/06/!!/2014/',
+    'xxxxxxxxxxxxxxxxxxxx/DD/xxxxxxxxxxxxxxxx/mm/xx/yyyy/', '/yy//mmmm//DD/', '.');
