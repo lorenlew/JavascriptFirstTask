@@ -4,83 +4,88 @@
         var month;
         var year;
         var formatedDate;
+        var maxDay = 31;
+        var minDay = 1;
+        var maxMonth = 12;
+        var minMonth = 1;
+        var minYear = 0;
         var months = {
-            01: "January",
-            02: "February",
-            03: "March",
-            04: "April",
-            05: "May",
-            06: "June",
-            07: "July",
-            08: "August",
-            09: "September",
-            10: "October",
-            11: "November",
-            12: "December"
+            '01': 'January',
+            '02': 'February',
+            '03': 'March',
+            '04': 'April',
+            '05': 'May',
+            '06': 'June',
+            '07': 'July',
+            '08': 'August',
+            '09': 'September',
+            10: 'October',
+            11: 'November',
+            12: 'December'
         };
 
         function getDateInFormatMmmmddyyyy() {
-            formatedDate = months[+month] + " " + day + " " + year;
+            formatedDate = months[month] + ' ' + day + ' ' + year;
             return formatedDate;
         }
 
         function getDateInFormatDdmmmmyyyy() {
-            formatedDate = day + " " + months[month] + " " + year;
+            formatedDate = day + ' ' + months[month] + ' ' + year;
             return formatedDate;
         }
 
         function getDateInFormatYyyyddmmmm() {
-            formatedDate = year + " " + day + " " + months[month];
+            formatedDate = year + ' ' + day + ' ' + months[month];
             return formatedDate;
         }
 
         function getDateInFormatYyyymmmmdd() {
-            formatedDate = year + " " + months[month] + " " + day;
+            formatedDate = year + ' ' + months[month] + ' ' + day;
             return formatedDate;
         }
 
         function getDateInFormatMmddyyyyPoint() {
-            formatedDate = month + "." + day + "." + year;
+            formatedDate = month + '.' + day + '.' + year;
             return formatedDate;
         }
 
         function getDateInFormatMmddyyyyHyphen() {
-            formatedDate = month + "-" + day + "-" + year;
+            formatedDate = month + '-' + day + '-' + year;
             return formatedDate;
         }
 
         function getDateInFormatDdmmyyyyPoint() {
-            formatedDate = day + "." + month + "." + year;
+            formatedDate = day + '.' + month + '.' + year;
             return formatedDate;
         }
 
         function getDateInFormatDdmmyyyyHyphen() {
-            formatedDate = day + "-" + month + "-" + year;
+            formatedDate = day + '-' + month + '-' + year;
             return formatedDate;
         }
 
         function getDateInFormatYyyyddmmPoint() {
-            formatedDate = year + "." + day + "." + month;
+            formatedDate = year + '.' + day + '.' + month;
             return formatedDate;
         }
 
         function getDateInFormatYyyyddmmHyphen() {
-            formatedDate = year + "-" + day + "-" + month;
+            formatedDate = year + '-' + day + '-' + month;
             return formatedDate;
         }
 
         function getDateInFormatYyyymmddPoint() {
-            formatedDate = year + "." + month + "." + day;
+            formatedDate = year + '.' + month + '.' + day;
             return formatedDate;
         }
 
         function getDateInFormatYyyymmddHyphen() {
-            formatedDate = year + "-" + month + "-" + day;
+            formatedDate = year + '-' + month + '-' + day;
             return formatedDate;
         }
 
         function getComponentsFromHoursFormat() {
-            //initial time from 1/1/1970 03-00(GMT+3) 
+            //initial time from 1/1/1970 03-00(GMT+3)
             var msInHours = parseInt(inputDate - 3, 10) * 60 * 60 * 1000;
             var dateFromHours = new Date(msInHours);
             day = dateFromHours.getDate() - 1;
@@ -114,49 +119,88 @@
 
         switch (selectedInputFormatValue) {
 
-            case "hours":
-                getComponentsFromHoursFormat(); break;
-            case "YYYYMMDD":
-                getComponentsFromYyyymmddFormat(); break;
-            case "YYYYDDMM":
-                getComponentsFromYyyyddmmFormat(); break;
-            case "DDMMYYYY":
-                getComponentsFromDdmmyyyyFormat(); break;
-            case "MMDDYYYY":
-                getComponentsFromMmddyyyyFormat(); break;
+        case 'hours':
+        {
+            getComponentsFromHoursFormat();
+            break;
         }
-        if ((day <= 31 && day > 0 && month > 0 && month <= 12 && year > 0 ) || (selectedInputFormatValue === "hours")) {
+        case 'YYYYMMDD':
+        {
+            getComponentsFromYyyymmddFormat();
+            break;
+        }
+        case 'YYYYDDMM':
+        {
+            getComponentsFromYyyyddmmFormat();
+            break;
+        }
+        case 'DDMMYYYY':
+        {
+            getComponentsFromDdmmyyyyFormat();
+            break;
+        }
+        case 'MMDDYYYY':
+        {
+            getComponentsFromMmddyyyyFormat();
+            break;
+        }
+        }
+        if ((day <= maxDay && day > minDay && month > minMonth && month <= maxMonth && year > minYear) ||
+        (selectedInputFormatValue === 'hours')) {
 
             switch (selectedOutputFormatValue) {
 
-                case "YYYY-MM-DD":
-                    return getDateInFormatYyyymmddHyphen();
-                case "YYYY.MM.DD":
-                    return getDateInFormatYyyymmddPoint();
-                case "YYYY-DD-MM":
-                    return getDateInFormatYyyyddmmHyphen();
-                case "YYYY.DD.MM":
-                    return getDateInFormatYyyyddmmPoint();
-                case "DD-MM-YYYY":
-                    return getDateInFormatDdmmyyyyHyphen();
-                case "DD.MM.YYYY":
-                    return getDateInFormatDdmmyyyyPoint();
-                case "MM-DD-YYYY":
-                    return getDateInFormatMmddyyyyHyphen();
-                case "MM.DD.YYYY":
-                    return getDateInFormatMmddyyyyPoint();
-                case "YYYY MMMM DD":
-                    return getDateInFormatYyyymmmmdd();
-                case "YYYY DD MMMM":
-                    return getDateInFormatYyyyddmmmm();
-                case "DD MMMM YYYY":
-                    return getDateInFormatDdmmmmyyyy();
-                case "MMMM DD YYYY":
-                    return getDateInFormatMmmmddyyyy();
+            case 'YYYY-MM-DD':
+            {
+                return getDateInFormatYyyymmddHyphen();
+            }
+            case 'YYYY.MM.DD':
+            {
+                return getDateInFormatYyyymmddPoint();
+            }
+            case 'YYYY-DD-MM':
+            {
+                return getDateInFormatYyyyddmmHyphen();
+            }
+            case 'YYYY.DD.MM':
+            {
+                return getDateInFormatYyyyddmmPoint();
+            }
+            case 'DD-MM-YYYY':
+            {
+                return getDateInFormatDdmmyyyyHyphen();
+            }
+            case 'DD.MM.YYYY':
+            {
+                return getDateInFormatDdmmyyyyPoint();
+            }
+            case 'MM-DD-YYYY':
+            {
+                return getDateInFormatMmddyyyyHyphen();
+            }
+            case 'MM.DD.YYYY':
+            {
+                return getDateInFormatMmddyyyyPoint();
+            }
+            case 'YYYY MMMM DD':
+            {
+                return getDateInFormatYyyymmmmdd();
+            }
+            case 'YYYY DD MMMM':
+            {
+                return getDateInFormatYyyyddmmmm();
+            }
+            case 'DD MMMM YYYY':
+            {
+                return getDateInFormatDdmmmmyyyy();
+            }
+            case 'MMMM DD YYYY':
+            {
+                return getDateInFormatMmmmddyyyy();
+            }
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 };

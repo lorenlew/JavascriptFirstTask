@@ -66,6 +66,7 @@
     <Content Include="Content\Scripts\FormatDate.min.js">
       <DependentUpon>FormatDate.js</DependentUpon>
     </Content>
+    <Content Include="Content\Scripts\ImprovedDateFormatter.js" />
     <Content Include="Content\Site.css" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
