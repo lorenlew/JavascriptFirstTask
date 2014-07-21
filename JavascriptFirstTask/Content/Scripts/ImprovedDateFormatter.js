@@ -47,10 +47,10 @@
     function trimDateParts(inputDate, tokensInString) {
 
         var datePart;
-        var token;
         var datePartStartIndex;
         var datePartEndIndex;
         var tokenInLowerCase;
+        var token;
 
         for (token in tokensInString) {
             datePartStartIndex = tokensInString[token] + 1;
@@ -70,9 +70,10 @@
         }
     }
 
-    function validateInputDate(inputDate, selectedInputFormatValue) {
+    dateFormatter.validateInputDate = function (inputDate, selectedInputFormatValue) {
 
-        if (!foundTokensInInputString) {
+        var isUsedBefore = isEmpty(foundTokensInInputString);
+        if (!isUsedBefore) {
             foundTokensInInputString = findTokens(selectedInputFormatValue);
             trimDateParts(inputDate, foundTokensInInputString);
         }
@@ -80,12 +81,24 @@
             return true;
         }
         throw Error('Invalid input date');
+    };
+
+    function isEmpty(obj) {
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     dateFormatter.fromNow = function (inputDate, selectedInputFormatValue) {
 
         foundTokensInInputString = findTokens(selectedInputFormatValue);
         trimDateParts(inputDate, foundTokensInInputString);
+        dateFormatter.validateInputDate(inputDate, selectedInputFormatValue);
+
         var providedYear = parseInt(year, 10);
         var providedMonth = parseInt(month, 10) - 1;
         var providedDay = parseInt(day, 10);
@@ -143,11 +156,11 @@
         foundTokensInInputString = findTokens(selectedInputFormatValue);
         foundTokensInOutputString = findTokens(selectedOutputFormatValue);
         trimDateParts(inputDate, foundTokensInInputString);
-        validateInputDate(inputDate, selectedInputFormatValue);
+        dateFormatter.validateInputDate(inputDate, selectedInputFormatValue);
         formOutputDate(separator);
 
         console.log('\n Input date string - ' + inputDate + '\n\n Input format - ' + selectedInputFormatValue +
-            '\n\n Output format - ' + selectedOutputFormatValue + '\n\n Output date string' + outputDateString);
+            '\n\n Output format - ' + selectedOutputFormatValue + '\n\n Output date string - ' + outputDateString);
         return outputDateString;
     };
 
@@ -156,3 +169,9 @@
 
 dateFormatter.formatDate('today is a great day/15/ for our country/06/!!/2014/',
     'xxxxxxxxxxxxxxxxxxxx/DD/xxxxxxxxxxxxxxxx/mm/xx/yyyy/', '/yy//mmmm//DD/', '.');
+
+console.log('dateFormatter.fromNow(\'-12--06--2014-\', \'/dd//mm//yyyy/\') = ' +
+    dateFormatter.fromNow('-12--06--2014-', '/dd//mm//yyyy/'));
+
+console.log('dateFormatter.validateInputDate(\'-12--06--2014-\', \'/dd//mm//yyyy/\') = ' +
+    dateFormatter.validateInputDate('-12--12--2014-', '/dd//mm//yyyy/'));
